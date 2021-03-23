@@ -1,10 +1,14 @@
 const express = require('express');
-
+var cors = require('cors');
+var bodyParser = require('body-parser');
 
 
 
 
 const app = express();
+app.use(bodyParser.json());
+
+app.use(cors());
 
 const users = ['Manik', 'Bonik', 'Shalik', 'falink', 'Montu'];
 
@@ -19,15 +23,18 @@ app.get('/', (req, res) => {
     }
     res.send(products);
 });
-app.get('/products/desktop', (req, res) => {
-    res.send({ products: 'desktop', quantity: 10, price: 50000 });
-});
+
 
 app.get('/users/:id/', (req, res) => {
     const id = req.params.id;
     const name = users[id];
     res.send({ id, name });
 
+})
+
+//post
+app.post('/addUser', (req, res) => {
+    console.log(req.body);
 })
 
 app.listen(3000, () => console.log('Listing to port 3000'));
